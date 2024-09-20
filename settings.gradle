@@ -1,4 +1,17 @@
-include 'quack-java'
-// include 'quack-android'
-include 'quack-jni'
-
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+rootProject.name = "QuackJS"
+include ':QuackJS'
+include ':quack:quack-android'

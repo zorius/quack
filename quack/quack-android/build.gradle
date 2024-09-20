@@ -1,18 +1,10 @@
-buildscript {
-    repositories {
-        google()
-        mavenCentral()
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.3'
-    }
-}
-
 apply plugin: 'com.android.library'
 
 android {
-  compileSdkVersion 30
+  compileSdkVersion 32
+
+  namespace "com.koushikdutta.quack"
+  ndkVersion "25.1.8937393"
 
   sourceSets {
     main.java.srcDirs += "../quack-java/src/main/java/"
@@ -31,22 +23,27 @@ android {
   }
 
   defaultConfig {
-    minSdkVersion 21
-    targetSdkVersion 30
+    minSdkVersion 19
+    targetSdkVersion 32
     versionCode 1
     versionName "1.0"
     ndk {
-//      abiFilters(*rootProject.ext.ndkAbiFilters)
+      // abiFilters('arm64-v8a', 'x86_64')
     }
     externalNativeBuild {
       cmake {
         arguments '-DANDROID_TOOLCHAIN=clang', '-DANDROID_STL=c++_static'
-        cFlags '-std=c99', '-fstrict-aliasing', '-DDUK_USE_DEBUGGER_SUPPORT', '-DDUK_USE_INTERRUPT_COUNTER', '-DDUK_USE_DEBUGGER_INSPECT', '-DDUK_USE_DEBUGGER_THROW_NOTIFY', '-DDUK_USE_DEBUGGER_PAUSE_UNCAUGHT', '-DDUK_USE_DEBUGGER_DUMPHEAP', '-Werror', '-Wno-implicit-const-int-float-conversion', '-Wno-pointer-to-int-cast'
+        cFlags '-std=c99', '-fstrict-aliasing', '-DDUK_USE_DEBUGGER_SUPPORT', '-DDUK_USE_INTERRUPT_COUNTER', '-DDUK_USE_DEBUGGER_INSPECT', '-DDUK_USE_DEBUGGER_THROW_NOTIFY', '-DDUK_USE_DEBUGGER_PAUSE_UNCAUGHT', '-DDUK_USE_DEBUGGER_DUMPHEAP', '-Werror', '-Wno-implicit-function-declaration', '-Wno-implicit-float-conversion', '-Wno-pointer-to-int-cast'
         cppFlags '-std=c++11', '-fstrict-aliasing', '-fexceptions', '-Werror'
       }
     }
 
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+  }
+  packagingOptions {
+    jniLibs {
+      useLegacyPackaging = true
+    }
   }
   buildTypes {
     release {

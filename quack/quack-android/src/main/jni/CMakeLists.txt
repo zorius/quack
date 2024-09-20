@@ -36,3 +36,5 @@ file(GLOB quickjs_SRC
 add_library(quack SHARED ${common_SRC} ${quickjs_SRC} ${duktape_SRC})
 
 target_link_libraries(quack)
+
+target_link_options(quack PRIVATE "-Wl,-z,max-page-size=16384")
